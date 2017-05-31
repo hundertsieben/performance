@@ -7,8 +7,7 @@
 # include <stdio.h>
 # include <time.h>
 # include "omp.h"
-# include <gmon.h>
-
+# include <inttypes.h>
 
 double calculate_pi(int);
 extern int isgprof;
@@ -16,27 +15,18 @@ extern int isgprof;
 int main( int argc, char *argv[] ) {
     double pi;
     int i;
-
-    for (i=0; i<argc; i=i+1){
-        if (argv[i]=="gprof"){
-            isgprof = 1;
-        }
-        else{
-            isgprof = 0;
-        }
-    }
-
-    if(isgprof){
-        gmon_start_all_thread_timers();
-    }
-
+    char* endptr;
+    uintmax_t iterations = strtoumax(argv[1], &endptr, 10);
+    
+    iterations=(int)argv[1];
+    printf("%d", iterations);
     printf("parallel pi calculation benchmark\n");
-
+    for (i=0; i<iterations; i=i+1){
             ///////////////////////////
             ////////BENCHMARK//////////
             pi=calculate_pi(9999999);
             ///////////////////////////
-
+    }
 
     printf("pi is: %f\n", pi);
     return 0;
@@ -52,19 +42,10 @@ double calculate_pi(int num_steps){
 
     #pragma omp parallel private(i,x) 
     {
-
-        if(isgprof){
-            gmon_thread_timer(1);
-        }
-
         #pragma omp for reduction(+:sum) schedule(static)
         for (i=0; i<num_steps; i=i+1){
             x=(i+0.5)*step;
             sum = sum + 4.0/(1.0+x*x);
-        }
-        
-        if(isgprof){ 
-            gmon_thread_timer(0);
         }
     }
     return step*sum;

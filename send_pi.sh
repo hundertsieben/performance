@@ -7,17 +7,11 @@
 
 number_threads=12
 number_iterations=100
-i=0
 
-
-module load gprof
-export BG_GMON_START_THREAD_TIMERS="all"
+module load perf
 export OMP_NUM_THREADS=$number_threads
 
-
-while [ $i -le $number_iterations ]; do
-    gprof srun ./pi gprof > pi.stat
-    let i=i+1 
-done
+perf record ./pi $number_iterations
+# srun ./pi
 
 exit
