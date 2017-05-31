@@ -1,3 +1,9 @@
+// Pi is calculated with numerical integration. The algorithm was
+// copied from
+// http://www.appentra.com/parallel-computation-pi/
+//
+// author: Nora Marcus (nora_lynn.marcus@tu-dresden.de) 
+
 # include <stdio.h>
 # include <time.h>
 # include "omp.h"
