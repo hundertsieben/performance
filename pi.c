@@ -1,11 +1,28 @@
 # include <stdio.h>
 # include <time.h>
 # include "omp.h"
+# include <gmon.h>
+
 
 double calculate_pi(int);
 
-int main() {
+int main( int argc, char *argv[] ) {
     double pi;
+
+    int isgprof, i;
+    
+    for (i=0; i<argc; i=i+1){
+        if (argv[i]==("gprof"||"GProf"||"GPROF"){
+            isgprof = 1;
+        }
+        else{
+            isgprof = 0;
+        }
+    }
+
+    if (isgprof){
+    gmon_start_all_thread_timers()    
+    }
 
     printf("parallel pi calculation benchmark\n");
 
@@ -20,19 +37,34 @@ int main() {
 }
 
 double calculate_pi(int num_steps){
-
+    
+   
     int i;
     double sum, x, step;
 
     x=0;
     sum = 0.0;
     step = 1.0/(double)num_steps;
+
+    
+
+
+
     #pragma omp parallel private(i,x) 
     {
+
+        if(isgprof){
+            gmon_thread_timer(1)
+        }
+
         #pragma omp for reduction(+:sum) schedule(static)
         for (i=0; i<num_steps; i=i+1){
-        x=(i+0.5)*step;
-        sum = sum + 4.0/(1.0+x*x);
+            x=(i+0.5)*step;
+            sum = sum + 4.0/(1.0+x*x);
+        }
+        
+        if(isgprof){ 
+            gmon_thread_timer(0)
         }
     }
     return step*sum;
