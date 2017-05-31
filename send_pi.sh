@@ -16,7 +16,7 @@ export OMP_NUM_THREADS=$number_threads
 
 
 while [ $i -le $number_iterations ]; do
-    gprof srun ./pi > pi.stat
+    gprof srun ./pi gprof > pi.stat
     let i=i+1 
 done
 
