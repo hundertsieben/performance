@@ -5,18 +5,15 @@
 double calculate_pi(int);
 
 int main() {
-    int j, iterations = 100;
     double pi;
 
     printf("parallel pi calculation benchmark\n");
-    for (j=0; j < iterations; j++){
 
             ///////////////////////////
             ////////BENCHMARK//////////
             pi=calculate_pi(9999999);
             ///////////////////////////
 
-    }
 
     printf("pi is: %f\n", pi);
     return 0;
