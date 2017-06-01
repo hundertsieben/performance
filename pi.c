@@ -9,37 +9,37 @@
 #include "omp.h"
 #include <inttypes.h>
 #include <string.h>
-#include <iostream>
-#include <iomanip>
 
 double calculate_pi(int);
 
 int main( int argc, char *argv[] ) {
 
-#ifdef _OPENMP
-   std::cout << "Parallel calculation of pi using " << omp_get_max_threads() << " threads.\n";
-   #pragma omp parallel
-     if (omp_get_thread_num()==0)
-       std::cout << "Use " << omp_get_num_threads() << " threads.\n";
-#else
-   std::cout << "Sequential calculation of pi.\n";
-#endif
+    #ifdef _OPENMP
+        printf("Parallel calculation of pi using %d threads.\n", omp_get_max_threads());
+        #pragma omp parallel 
+        {
+            if (omp_get_thread_num()==0){
+                printf("Use %d threads.\n ", omp_get_num_threads());
+            }
+        }
+    #else
+        printf("Sequential calculation of pi.\n");
+    #endif
  
     double pi;
     int iterations=0;
-
-    //int l = strlen(argv[1]);
+    int i;
  
     iterations = atoi(argv[1]);    
-
-    for (int i=0; i<iterations; ++i){
+    printf("%d\n", iterations);
+    for (i=0; i<iterations; i=i+1){
             ///////////////////////////
             ////////BENCHMARK//////////
             pi=calculate_pi(9999999);
             ///////////////////////////
     }
 
-    std::cout << "pi is " << std::fixed << std::setprecision(9) << pi << "\n";
+    printf("pi is %.10f \n", pi);
     return 0;
 }
 
