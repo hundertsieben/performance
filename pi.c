@@ -4,30 +4,42 @@
 //
 // author: Nora Marcus (nora_lynn.marcus@tu-dresden.de) 
 
-# include <stdio.h>
-# include <time.h>
-# include "omp.h"
-# include <inttypes.h>
-# include <string.h>
+#include <stdio.h>
+#include <time.h>
+#include "omp.h"
+#include <inttypes.h>
+#include <string.h>
+#include <iostream>
+#include <iomanip>
 
 double calculate_pi(int);
 
 int main( int argc, char *argv[] ) {
-    double pi;
-    int i, iterations=0;
 
-    int l = strlen(argv[1]);
+#ifdef _OPENMP
+   std::cout << "Parallel calculation of pi using " << omp_get_max_threads() << " threads.\n";
+   #pragma omp parallel
+     if (omp_get_thread_num()==0)
+       std::cout << "Use " << omp_get_num_threads() << " threads.\n";
+#else
+   std::cout << "Sequential calculation of pi.\n";
+#endif
+ 
+    double pi;
+    int iterations=0;
+
+    //int l = strlen(argv[1]);
  
     iterations = atoi(argv[1]);    
 
-    for (i=0; i<iterations; i=i+1){
+    for (int i=0; i<iterations; ++i){
             ///////////////////////////
             ////////BENCHMARK//////////
             pi=calculate_pi(9999999);
             ///////////////////////////
     }
 
-    printf("pi is: %f\n", pi);
+    std::cout << "pi is " << std::fixed << std::setprecision(9) << pi << "\n";
     return 0;
 }
 
