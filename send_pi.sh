@@ -11,7 +11,7 @@ number_iterations=100
 module load perf
 export OMP_NUM_THREADS=$number_threads
 
-perf record ./pi $number_iterations
+perf record ./pi 10
 # srun ./pi
 
 exit

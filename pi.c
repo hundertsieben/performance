@@ -8,19 +8,18 @@
 # include <time.h>
 # include "omp.h"
 # include <inttypes.h>
+# include <string.h>
 
 double calculate_pi(int);
-extern int isgprof;
 
 int main( int argc, char *argv[] ) {
     double pi;
-    int i;
-    char* endptr;
-    uintmax_t iterations = strtoumax(argv[1], &endptr, 10);
-    
-    iterations=(int)argv[1];
-    printf("%d", iterations);
-    printf("parallel pi calculation benchmark\n");
+    int i, iterations=0;
+
+    int l = strlen(argv[1]);
+ 
+    iterations = atoi(argv[1]);    
+
     for (i=0; i<iterations; i=i+1){
             ///////////////////////////
             ////////BENCHMARK//////////
