@@ -1,10 +1,12 @@
+.PHONY: clean
+
 all: pi pi_wtime
 
-pi: 
-	$(CC) pi.c $(CFLAGS) -o pi -fopenmp
+pi: pi.c
+	$(CXX) pi.c -g $(CXXFLAGS) -o pi -fopenmp
 
 pi_wtime:
-	$(CC) pi_wtime.c $(CFLAGS) -o pi_wtime -fopenmp
+	$(CXX) pi_wtime.c $(CXXFLAGS) -o pi_wtime -fopenmp
 
 clean:
 	rm pi pi_wtime
