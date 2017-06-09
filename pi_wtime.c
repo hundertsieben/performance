@@ -15,7 +15,7 @@ int main() {
 	    start=omp_get_wtime();
 	    ///////////////////////////
 	    ////////BENCHMARK//////////
-	    pi=calculate_pi(2048);
+	    pi=calculate_pi(9999999);
 	    ///////////////////////////
 	    end=omp_get_wtime();
 

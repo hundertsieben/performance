@@ -11,7 +11,7 @@ number_iterations=100
 module load perf/r94
 export OMP_NUM_THREADS=$number_threads
 
-perf record -e 'cs'  srun ./pi $number_iterations
+perf record -e [add events, separated by comma but not blanks]  srun ./pi $number_iterations
 
 
-exif
+exit
