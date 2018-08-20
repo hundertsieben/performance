@@ -4,6 +4,7 @@
 //
 // author: Nora Marcus (nora_lynn.marcus@tu-dresden.de) 
 
+#include <stdlib.h>
 #include <stdio.h>
 #include <time.h>
 #include "omp.h"
@@ -31,7 +32,6 @@ int main( int argc, char *argv[] ) {
     int i;
  
     iterations = atoi(argv[1]);    
-    printf("%d\n", iterations);
     for (i=0; i<iterations; i=i+1){
             ///////////////////////////
             ////////BENCHMARK//////////
