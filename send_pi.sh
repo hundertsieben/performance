@@ -13,7 +13,7 @@ number_iterations=100
 cd /scratch/s7330426/
 cp /home/s7330426/performance/pi ./
 
-module load perf/r94
+#module load perf/r94
 
 export OMP_NUM_THREADS=$number_threads
 

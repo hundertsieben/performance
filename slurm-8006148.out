@@ -1,0 +1,6 @@
+Parallel calculation of pi using 12 threads.
+Use 12 threads.
+ 100
+pi is 3.1415926536 
+[ perf record: Woken up 5 times to write data ]
+[ perf record: Captured and wrote 3.422 MB ./perf.data (89340 samples) ]
